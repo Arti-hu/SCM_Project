@@ -130,30 +130,35 @@ public class UserController
 	@GetMapping("/viewContacts")
 	public String viewContacts(Model model,HttpSession session)
 	{
-		int userId=(int) session.getAttribute("userId");
-		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
-		model.addAttribute("listContact",contactDetails);
-//		return "user/ViewContacts";
-		return showContacts(model, 0, session);
-	}
-	
-//	@GetMapping("/showSearch")
-//	public String search(HttpSession session,Model model)
-//	{
 //		int userId=(int) session.getAttribute("userId");
 //		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
 //		model.addAttribute("listContact",contactDetails);
-//		return "user/ViewContacts";
-//	}
+////		return "user/ViewContacts";
+		return showContacts(model, 0, session);
+	}
+	
 	@GetMapping("/search")
-	public String searchContact(Model model,@Param("keyword") String keyword,HttpSession session)
+	public String search(HttpSession session,Model model,@Param("keyword") String keyword)
 	{
-		//int userId=(int) session.getAttribute("userId");
-		List<Contact>contactDetails=this.contactRepo.findByNameContainingAndUser(keyword, null, null);
-        model.addAttribute("listContact",contactDetails);
+//		int userId=(int) session.getAttribute("userId");
+//		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
+//		model.addAttribute("listContact",contactDetails);
+		return searchContact(model,keyword, session, 0);
+	}
+	@PostMapping("/showSearch/{pageNumber}")
+	public String searchContact(Model model,@Param("keyword") String keyword,HttpSession session,@PathVariable int pageNumber)
+	{
+		int userId=(int) session.getAttribute("userId");
+		System.out.println("Search+++++++++++++++++++++++++++++++++++++++++"+userId);
+		Pageable pageable=PageRequest.of(pageNumber, 4);
+		Page<Contact> page=this.contactservice.searchContactByUserId(userId, keyword, pageable);
+		model.addAttribute("listContact", page);
+		model.addAttribute("currentPage",pageNumber);
+		model.addAttribute("totalPages",page.getTotalPages());
 		
-		//return "redirect:/showSearch";
-        return "";
+	    //model.addAttribute("listContact",contactDetails);
+		return "user/ViewContacts";
+		
      }
 	
 	

@@ -13,7 +13,7 @@
 		<div style=" margin-top: 13%; width: 60%;">
            <a href="/addcontact" style="text-decoration: none;  margin-left: 4%; font-size: large;"><i
 					class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
-			<!--  <form th:object="${contact2}" style="margin-left: 70%; width:100%;"> -->
+			 <form  th:action="@{/search}" style="margin-left: 70%; width:100%;">
 				<div class="row" style="width: 120%; margin-left: 70%;">
 				  
 				
@@ -22,11 +22,11 @@
 							placeholder="Search contact here" name="keyword" style="border-radius: 40px;">
 					</div>
 					<div class="col-sm-3">
-						<a  th:href="@{/search}"><input type="submit" class="btn btn-primary" value="Search" ></a>
+						<input type="submit" class="btn btn-primary" value="Search" >
 							
 					</div>
 				</div>
-		<!-- 	</form> -->
+			</form>
 			<!--  <form action="">
 		        <input  type="text" class="form-control" name="keyword" placeholder="Search contact here" style="border-radius: 40px;">	
 		        <input type="submit" value="Search"/ >  

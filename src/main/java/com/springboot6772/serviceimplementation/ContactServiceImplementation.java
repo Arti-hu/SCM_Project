@@ -127,12 +127,26 @@ public class ContactServiceImplementation implements ContactService
 		//return contactRepo.findAll(pageable);
 	}
 
+//	@Override
+//	public Contact checkPersonName(String personName) 
+//	{
+//		
+//		return this.contactRepo.findContactBypersonName(personName);
+//	}
+
 	@Override
-	public Contact checkPersonName(String personName) 
+	public Page<Contact> searchContactByUserId(int userId,String keyword,Pageable pageable) 
 	{
+		User user=this.userRepo.findById(userId).get();
+		if(keyword!=null)
+		{
+			return contactRepo.findContactBypersonName(userId, keyword, pageable);
+		}
 		
-		return this.contactRepo.findContactBypersonName(personName);
+		return contactRepo.findContactByUser(userId, pageable);
 	}
+
+	
 
 	
 	

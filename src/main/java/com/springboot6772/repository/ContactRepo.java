@@ -21,8 +21,12 @@ public interface ContactRepo extends JpaRepository<Contact, Integer>
 	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1% ")
 	public List<Contact> findAll(String keyword);
    
-	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1%")
+	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1% ")
      public List<Contact> findByNameContainingAndUser(String personName,User user,Pageable pageable);
 	
-	public Contact findContactBypersonName(String personName);
+	//search
+	@Query("from Contact c where c.users.userId=:userId and c.personName LIKE %:personName%")
+	public Page<Contact> findContactBypersonName(@Param("userId")int userId, String personName,Pageable pageable);
+	
+	
 }

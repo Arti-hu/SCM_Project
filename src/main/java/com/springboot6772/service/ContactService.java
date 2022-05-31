@@ -34,7 +34,9 @@ public interface ContactService
    //Pagination1
    public Page<Contact> getAllContactsByUserId( int userId ,Pageable pageable);
    
-   //search
-   public Contact checkPersonName(String personName);
+//   //search
+//   public Contact checkPersonName(String personName);
    
+   //search1
+   public Page<Contact> searchContactByUserId(int userId,String keyword,Pageable pageable);
   }
